@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.miguelcr.dynamicfragment.GridUserFragment">
+    tools:context="com.miguelcr.dynamicfragment.GridUserFragment"
+    android:background="@android:color/holo_red_light">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="You are in Grid View" />
+        android:text="You are in Grid View"
+        android:textColor="@android:color/white"/>
 
 </FrameLayout>

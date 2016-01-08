@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 public class MainActivity extends AppCompatActivity {
     FrameLayout container;
     boolean isLoadUser = true;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         // Load by default de ListUserFragment
         getSupportFragmentManager().beginTransaction().add(R.id.container,new ListUserFragment()).commit();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 if(isLoadUser) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,new GridUserFragment()).commit();
                     isLoadUser = false;
+                    fab.setImageResource(R.drawable.ic_grid);
                 } else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,new ListUserFragment()).commit();
                     isLoadUser = true;
+                    fab.setImageResource(R.drawable.ic_list);
                 }
             }
         });
