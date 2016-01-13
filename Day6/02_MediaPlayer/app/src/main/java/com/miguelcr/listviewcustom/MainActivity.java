@@ -1,5 +1,8 @@
 package com.miguelcr.listviewcustom;
 
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     GridView lista;
     ArrayList<FruitItem> fruitItems;
+    SoundPool soundpool;
+    SoundPool.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,30 +42,29 @@ public class MainActivity extends AppCompatActivity {
         // Get the reference to the listview component
         lista = (GridView) findViewById(R.id.listView);
 
-        // Fruits
-        FruitItem banana = new FruitItem(R.drawable.ic_banana,"Banana");
-        FruitItem strawberry = new FruitItem(R.drawable.ic_strawberry,"Strawberry");
-        FruitItem peach = new FruitItem(R.drawable.ic_peach,"Peach");
-        FruitItem kiwi = new FruitItem(R.drawable.ic_kiwi,"Kiwi");
-        FruitItem lemon = new FruitItem(R.drawable.ic_lemon,"Lemon");
-        FruitItem mango = new FruitItem(R.drawable.ic_mango,"Mango");
-        FruitItem orange = new FruitItem(R.drawable.ic_orange,"Orange");
+        // Instruments
+        FruitItem drumm = new FruitItem(R.drawable.ic_drumm,"Drumm");
+        FruitItem guitar = new FruitItem(R.drawable.ic_guitar,"Guitar");
+        FruitItem piano = new FruitItem(R.drawable.ic_piano,"Piano");
 
         // Create an array and add fruits to the array
         fruitItems = new ArrayList<FruitItem>();
-        fruitItems.add(banana);
-        fruitItems.add(strawberry);
-        fruitItems.add(peach);
-        fruitItems.add(kiwi);
-        fruitItems.add(lemon);
-        fruitItems.add(mango);
-        fruitItems.add(orange);
+        fruitItems.add(drumm);
+        fruitItems.add(guitar);
+        fruitItems.add(piano);
 
         // The next lines of code help us to adapt de fruitItems
         // to our custom design defined in the layout fruit_list_item.xml
         FruitAdapter adapter = new FruitAdapter(this,fruitItems);
         lista.setAdapter(adapter);
 
+        builder = new SoundPool.Builder();
+        AudioAttributes aa = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+
+        int guitarSound = soundpool.load(this,R.raw.guitar,1);
 
     }
 

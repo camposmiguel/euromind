@@ -42,19 +42,10 @@ public class FruitAdapter extends ArrayAdapter<FruitItem> {
 
         // 1st Block: get the data of the current fruitITem
         int iconCurrentFruit = currentFruit.getIcon();
-        String nameCurrentFruit = currentFruit.getName();
 
         // 2nd block: set the data into the layout
         ImageView icon = (ImageView) layoutItem.findViewById(R.id.imageViewFruit);
-        TextView name = (TextView) layoutItem.findViewById(R.id.textViewFruitName);
-        RelativeLayout layout = (RelativeLayout) layoutItem.findViewById(R.id.itemLayout);
-
         icon.setImageResource(iconCurrentFruit);
-        name.setText(nameCurrentFruit);
-
-        if(position%2==0) { // Even
-            layout.setBackgroundColor(Color.GRAY);
-        }
 
         return layoutItem;
     }
