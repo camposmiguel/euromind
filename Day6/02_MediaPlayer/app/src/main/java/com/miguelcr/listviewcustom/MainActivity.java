@@ -3,6 +3,7 @@ package com.miguelcr.listviewcustom;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     GridView lista;
     ArrayList<FruitItem> fruitItems;
     SoundPool soundpool;
-    SoundPool.Builder builder;
+    int guitarSound, drummSound, pianoSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +60,26 @@ public class MainActivity extends AppCompatActivity {
         FruitAdapter adapter = new FruitAdapter(this,fruitItems);
         lista.setAdapter(adapter);
 
-        builder = new SoundPool.Builder();
+        // Player properties
         AudioAttributes aa = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_MEDIA)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
 
-        int guitarSound = soundpool.load(this,R.raw.guitar,1);
+        soundpool = new SoundPool.Builder()
+            .setMaxStreams(10)
+            .setAudioAttributes(aa)
+            .build();
+
+        // Load sound of guitar
+        guitarSound = soundpool.load(this,R.raw.guitar,1);
+
+        lista.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        soundpool.play(guitarSound,1,1,1,1,1);
 
     }
 
@@ -89,4 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
